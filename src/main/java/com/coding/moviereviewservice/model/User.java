@@ -10,13 +10,18 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
 
-    private final Long id;
+    private final int id;
 
     private final String name;
 
     private List<Movie> reviewedMovies;
 
     private Role role;
+
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public void setReviewedMovies(List<Movie> reviewedMovies) {
         this.reviewedMovies = reviewedMovies;

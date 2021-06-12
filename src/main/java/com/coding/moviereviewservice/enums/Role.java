@@ -11,6 +11,6 @@ public enum Role {
 
     @Override
     public String toString() {
-        return this.name().toLowerCase(Locale.ROOT);
+        return super.toString().toLowerCase(Locale.ROOT);
     }
 }
