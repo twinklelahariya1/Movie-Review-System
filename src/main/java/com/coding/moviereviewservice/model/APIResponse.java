@@ -1,6 +1,5 @@
 package com.coding.moviereviewservice.model;
 
-
 import com.coding.moviereviewservice.enums.APIResponseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

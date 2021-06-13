@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -15,4 +16,9 @@ public class Movie {
 
     private final Date releaseDate;
 
+    private List<UserReview> userReview;
+
+    public void setUserReview(List<UserReview> userReview) {
+        this.userReview = userReview;
+    }
 }
