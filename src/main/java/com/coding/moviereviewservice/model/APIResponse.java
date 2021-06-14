@@ -1,10 +1,10 @@
 package com.coding.moviereviewservice.model;
 
-import com.coding.moviereviewservice.enums.APIResponseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class APIResponse {
 
-    private APIResponseStatus status;
+    private HttpStatus status;
 
     private String message;
 
@@ -20,34 +20,34 @@ public class APIResponse {
 
 
     public static APIResponse success() {
-        return new APIResponse(APIResponseStatus.SUCCESS, null, null);
+        return new APIResponse(HttpStatus.OK, null, null);
     }
 
     public static APIResponse success(String message) {
-        return new APIResponse(APIResponseStatus.SUCCESS, message, null);
+        return new APIResponse(HttpStatus.OK, message, null);
     }
 
     public static APIResponse success(Object data) {
-        return new APIResponse(APIResponseStatus.SUCCESS, null, data);
+        return new APIResponse(HttpStatus.OK, null, data);
     }
 
     public static APIResponse success(String message, Object data) {
-        return new APIResponse(APIResponseStatus.SUCCESS, message, data);
+        return new APIResponse(HttpStatus.OK, message, data);
     }
 
     public static APIResponse error() {
-        return new APIResponse(APIResponseStatus.ERROR, null, null);
+        return new APIResponse(HttpStatus.BAD_REQUEST, null, null);
     }
 
     public static APIResponse error(String message) {
-        return new APIResponse(APIResponseStatus.ERROR, message, null);
+        return new APIResponse(HttpStatus.BAD_REQUEST, message, null);
     }
 
     public static APIResponse error(Object data) {
-        return new APIResponse(APIResponseStatus.ERROR, null, data);
+        return new APIResponse(HttpStatus.BAD_REQUEST, null, data);
     }
 
     public static APIResponse error(String message, Object data) {
-        return new APIResponse(APIResponseStatus.ERROR, message, data);
+        return new APIResponse(HttpStatus.BAD_REQUEST, message, data);
     }
 }

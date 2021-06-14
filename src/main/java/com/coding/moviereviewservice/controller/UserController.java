@@ -5,8 +5,10 @@ import com.coding.moviereviewservice.model.User;
 import com.coding.moviereviewservice.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "/api/vi/user")
+@RequestMapping(path = "/api/vi/users")
 public class UserController {
 
     private final UserService userService;
@@ -15,18 +17,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/")
     public APIResponse createUser(@RequestBody User user) {
-        return userService.createUser(user);
+        User response = userService.createUser(user);
+        return APIResponse.success(response);
     }
 
-    @GetMapping(path = "/id/{id}")
+    @GetMapping(path = "/{id}")
     public APIResponse getUser(@PathVariable int id) {
-        return userService.getUserById(id);
+        User user = userService.getUserById(id);
+        return APIResponse.success(user);
     }
 
-    @GetMapping(path = "s")
+    @GetMapping(path = "/")
     public APIResponse getUsers() {
-        return userService.getUsers();
+        List<User> users = userService.getUsers();
+        return APIResponse.success(users);
     }
 }

@@ -4,6 +4,8 @@ import com.coding.moviereviewservice.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class User {
@@ -14,12 +16,20 @@ public class User {
 
     private Role role;
 
-    public User(int id, String name) {
+    private List<Movie> movies;
+
+    public User(int id, String name, Role role) {
         this.id = id;
         this.name = name;
+        this.role = role;
     }
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+
     }
 }
