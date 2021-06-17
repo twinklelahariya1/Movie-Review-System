@@ -39,10 +39,10 @@ public class MovieController {
     }
 
     @GetMapping(path = "/genre/{genre}/critic")
-    public APIResponse getCriticReviewOfGenre(@PathVariable String genre) {
+    public APIResponse getTopNCriticReviewOfGenre(@PathVariable String genre, @PathVariable Integer count) {
         try {
             Genre movieGenre = Genre.valueOf(genre.toUpperCase(Locale.ROOT));
-            return APIResponse.success(movieService.getCriticMovieReviewByGenre(movieGenre));
+            return APIResponse.success(movieService.getTopNCriticMovieReviewByGenre(movieGenre, count));
         } catch (Exception e) {
             return APIResponse.error("Genre does not exist");
         }

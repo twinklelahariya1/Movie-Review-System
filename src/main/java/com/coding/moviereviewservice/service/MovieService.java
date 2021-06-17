@@ -15,5 +15,5 @@ public interface MovieService {
 
     int getMovieReview(Long movieId);
 
-    int getCriticMovieReviewByGenre(Genre genre);
+    int getTopNCriticMovieReviewByGenre(Genre genre, Integer count);
 }

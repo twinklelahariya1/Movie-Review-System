@@ -64,8 +64,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public int getCriticMovieReviewByGenre(Genre genre) {
+    public int getTopNCriticMovieReviewByGenre(Genre genre, Integer count) {
         return movies.values().stream().filter(movie -> genre.equals(movie.getGenre()))
+                .limit(count)
                 .map(movie -> reviewService.getMovieReview(movie.getId()))
                 .mapToInt(value -> value)
                 .sum();
