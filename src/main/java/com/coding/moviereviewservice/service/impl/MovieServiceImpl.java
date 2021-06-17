@@ -31,7 +31,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie getUserById(Long id) {
+    public Movie getMovieById(Long id) {
         return movies.get(id);
     }
 
@@ -43,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie reviewMovie(Long movieId, UserReview userReview) {
+    public void reviewMovie(Long movieId, UserReview userReview) {
 
         Role userRole = userService.getUserRole(userReview.getUserId());
         userReview.setRole(userRole);
@@ -51,6 +51,6 @@ public class MovieServiceImpl implements MovieService {
         List<UserReview> userReview1 = movie.getUserReview();
         userReview1.add(userReview);
         movie.setUserReview(userReview1);
-        return movie; //refactor
     }
+
 }

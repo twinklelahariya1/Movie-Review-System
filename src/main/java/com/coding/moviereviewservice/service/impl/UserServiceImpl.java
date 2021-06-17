@@ -31,7 +31,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Role getUserRole(int userId) {
-        return users.get(userId).getRole();
-        //update role;
+        return getRole(userId);
+    }
+
+    private Role getRole(int userId) {
+        User user = users.get(userId);
+        long count = user.getMovies().size();
+        if (count > 3)
+            user.setRole(Role.CRITIC);
+        if (count > 10)
+            user.setRole(Role.EXPERT);
+        if (count > 50)
+            user.setRole(Role.ADMIN);
+
+        return user.getRole();
     }
 }

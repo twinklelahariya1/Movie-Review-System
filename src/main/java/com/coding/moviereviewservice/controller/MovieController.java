@@ -27,7 +27,7 @@ public class MovieController {
 
     @GetMapping(path = "/{movieId}")
     public APIResponse getUserById(@PathVariable Long movieId){
-        return APIResponse.success(movieService.getUserById(movieId));
+        return APIResponse.success(movieService.getMovieById(movieId));
     }
 
     @PostMapping("/{movieId}/review")
