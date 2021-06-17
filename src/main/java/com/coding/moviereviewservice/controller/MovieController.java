@@ -34,8 +34,8 @@ public class MovieController {
     }
 
     @GetMapping(path = "/{movieId}/review")
-    public APIResponse getMovieReview(@PathVariable Long movieId) {
-        return APIResponse.success(movieService.getMovieReview(movieId));
+    public APIResponse getAverageMovieReview(@PathVariable Long movieId) {
+        return APIResponse.success(movieService.getAverageMovieReview(movieId));
     }
 
     @GetMapping(path = "/genre/{genre}/critic")

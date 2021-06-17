@@ -59,7 +59,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public int getMovieReview(Long movieId) {
+    public int getAverageMovieReview(Long movieId) {
         return reviewService.getMovieReview(movieId);
     }
 

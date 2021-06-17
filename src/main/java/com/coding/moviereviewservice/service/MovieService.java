@@ -13,7 +13,7 @@ public interface MovieService {
 
     void reviewMovie(Long movieId, UserReview userReview);
 
-    int getMovieReview(Long movieId);
+    int getAverageMovieReview(Long movieId);
 
     int getTopNCriticMovieReviewByGenre(Genre genre, Integer count);
 }

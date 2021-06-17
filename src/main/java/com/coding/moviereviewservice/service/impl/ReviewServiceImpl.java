@@ -7,6 +7,8 @@ import com.coding.moviereviewservice.service.MovieService;
 import com.coding.moviereviewservice.service.ReviewService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
@@ -33,9 +35,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private int computeReview(Movie movie) {
-        return movie.getUserReview().stream().map(this::computeRatingForMovie)
+        List<UserReview> userReview = movie.getUserReview();
+        int sum = userReview.stream().map(this::computeRatingForMovie)
                 .mapToInt(e -> e)
                 .sum();
+        return sum / userReview.size();
 
     }
 
