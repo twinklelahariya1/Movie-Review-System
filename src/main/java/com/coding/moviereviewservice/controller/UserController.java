@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping(path = "/")
     public APIResponse getUsers() {
-        Map<Integer, User> users = userService.getUsers();
+        List<User> users = userService.getUsers();
         return APIResponse.success(users);
     }
 }

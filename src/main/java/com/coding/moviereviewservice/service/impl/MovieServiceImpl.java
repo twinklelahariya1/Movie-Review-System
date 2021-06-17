@@ -4,6 +4,7 @@ import com.coding.moviereviewservice.enums.Genre;
 import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
+import com.coding.moviereviewservice.repository.MovieRepository;
 import com.coding.moviereviewservice.service.MovieService;
 import com.coding.moviereviewservice.service.ReviewService;
 import com.coding.moviereviewservice.service.UserService;
@@ -11,9 +12,7 @@ import com.coding.moviereviewservice.util.CustomException;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -22,27 +21,28 @@ public class MovieServiceImpl implements MovieService {
 
     private final ReviewService reviewService;
 
-    Map<Long, Movie> movies = new HashMap<>();
+    private final MovieRepository movieRepository;
 
-    public MovieServiceImpl(UserService userService, ReviewService reviewService) {
+    public MovieServiceImpl(UserService userService, ReviewService reviewService, MovieRepository movieRepository) {
         this.userService = userService;
         this.reviewService = reviewService;
+        this.movieRepository = movieRepository;
     }
 
     @Override
     public Movie createMovie(Movie movie) {
 
-        movies.put(movie.getId(), movie);
+        movieRepository.addData(movie);
         return movie;
     }
 
     @Override
-    public Movie getMovieById(Long id) {
-        return movies.get(id);
+    public Movie getMovieById(Long movieId) {
+        return getMovie(movieId);
     }
 
     private boolean canReviewMovie(Long movieId) {
-        Movie movie = movies.get(movieId);
+        Movie movie = getMovie(movieId);
         return Calendar.getInstance().getTime().after(movie.getReleaseDate());
 
     }
@@ -54,7 +54,7 @@ public class MovieServiceImpl implements MovieService {
 
             Role userRole = userService.getUserRole(userReview.getUserId());
             userReview.setRole(userRole);
-            Movie movie = movies.get(movieId);
+            Movie movie = getMovie(movieId);
             List<UserReview> userReview1 = movie.getUserReview();
             userReview1.add(userReview);
             movie.setUserReview(userReview1);
@@ -63,14 +63,18 @@ public class MovieServiceImpl implements MovieService {
         throw new CustomException().serviceException();
     }
 
+    private Movie getMovie(Long movieId) {
+        return movieRepository.getData(movieId).orElseThrow(() -> new CustomException("Data Not Found !!"));
+    }
+
     @Override
     public int getAverageMovieReview(Long movieId) {
-        return reviewService.computeReview(movies.get(movieId));
+        return reviewService.computeReview(getMovie(movieId));
     }
 
     @Override
     public int getTopNCriticMovieReviewByGenre(Genre genre, Integer count) {
-        return movies.values().stream().filter(movie -> genre.equals(movie.getGenre()))
+        return movieRepository.getAllData().stream().filter(movie -> genre.equals(movie.getGenre()))
                 .limit(count)
                 .map(reviewService::computeReview)
                 .mapToInt(value -> value)

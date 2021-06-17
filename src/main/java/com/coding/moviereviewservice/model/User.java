@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
 
-    private final int id;
+    private final Long id;
 
     private final String name;
 
@@ -18,7 +18,7 @@ public class User {
 
     private List<Movie> movies;
 
-    public User(int id, String name, Role role) {
+    public User(Long id, String name, Role role) {
         this.id = id;
         this.name = name;
         this.role = role;
