@@ -1,5 +1,6 @@
 package com.coding.moviereviewservice.model;
 
+import com.coding.moviereviewservice.enums.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,6 +16,8 @@ public class Movie {
     private final String name;
 
     private final Date releaseDate;
+
+    private final Genre genre;
 
     private List<UserReview> userReview;
 

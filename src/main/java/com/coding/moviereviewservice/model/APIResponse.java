@@ -18,7 +18,6 @@ public class APIResponse {
 
     private Object data;
 
-
     public static APIResponse success() {
         return new APIResponse(HttpStatus.OK, null, null);
     }

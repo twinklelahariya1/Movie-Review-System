@@ -6,6 +6,7 @@ import com.coding.moviereviewservice.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/vi/users")
@@ -31,7 +32,7 @@ public class UserController {
 
     @GetMapping(path = "/")
     public APIResponse getUsers() {
-        List<User> users = userService.getUsers();
+        Map<Integer, User> users = userService.getUsers();
         return APIResponse.success(users);
     }
 }

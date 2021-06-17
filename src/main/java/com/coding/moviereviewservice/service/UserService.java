@@ -1,8 +1,9 @@
 package com.coding.moviereviewservice.service;
 
+import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.User;
 
-import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -10,5 +11,7 @@ public interface UserService {
 
     User getUserById(int id);
 
-    List<User> getUsers();
+    Map<Integer, User> getUsers();
+
+    Role getUserRole(int userId);
 }
