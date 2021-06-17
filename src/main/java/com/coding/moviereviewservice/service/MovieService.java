@@ -9,9 +9,7 @@ public interface MovieService {
 
     Movie getMovieById(Long id);
 
-    boolean canReviewMovie(Long movieId);
-
-    void reviewMovie(Long movieId, UserReview userReview);
+    Movie reviewMovie(Long movieId, UserReview userReview);
 
     int getAverageMovieReview(Long movieId);
 

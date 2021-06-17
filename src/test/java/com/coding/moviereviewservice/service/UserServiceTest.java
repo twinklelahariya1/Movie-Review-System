@@ -1,7 +1,6 @@
 package com.coding.moviereviewservice.service;
 
 import com.coding.moviereviewservice.enums.Role;
-import com.coding.moviereviewservice.model.APIResponse;
 import com.coding.moviereviewservice.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,14 +16,7 @@ public class UserServiceTest {
     @Test
     public void createUserTest() {
         User user = new User(1, "Twinkle", Role.VIEWER);
-//        Assertions.assertEquals(userService.createUser(user).getData(),user);
-
+        Assertions.assertEquals(userService.createUser(user).getName(), user.getName());
     }
 
-    @Test
-    public void getUserTest() {
-//        User user = new User(1, "Twinkle", Role.VIEWER);
-//        Assertions.assertEquals(userService.getUsers().getStatus(), APIResponse.success().getStatus());
-
-    }
 }

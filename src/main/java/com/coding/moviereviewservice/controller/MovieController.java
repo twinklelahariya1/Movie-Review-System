@@ -16,11 +16,8 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    private final ReviewService reviewService;
-
-    public MovieController(MovieService movieService, ReviewService reviewService) {
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
-        this.reviewService = reviewService;
     }
 
     @PostMapping(path = "")
@@ -50,6 +47,6 @@ public class MovieController {
 
     @PostMapping(path = "/{movieId}/review")
     public APIResponse reviewMovie(@RequestBody UserReview userReview, @PathVariable Long movieId) {
-        return APIResponse.success(reviewService.reviewMovie(userReview, movieId));
+        return APIResponse.success(movieService.reviewMovie(movieId, userReview));
     }
 }

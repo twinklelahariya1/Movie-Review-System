@@ -7,6 +7,7 @@ import com.coding.moviereviewservice.model.UserReview;
 import com.coding.moviereviewservice.service.MovieService;
 import com.coding.moviereviewservice.service.ReviewService;
 import com.coding.moviereviewservice.service.UserService;
+import com.coding.moviereviewservice.util.CustomException;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -40,34 +41,38 @@ public class MovieServiceImpl implements MovieService {
         return movies.get(id);
     }
 
-    @Override
-    public boolean canReviewMovie(Long movieId) {
+    private boolean canReviewMovie(Long movieId) {
         Movie movie = movies.get(movieId);
         return Calendar.getInstance().getTime().after(movie.getReleaseDate());
 
     }
 
     @Override
-    public void reviewMovie(Long movieId, UserReview userReview) {
+    public Movie reviewMovie(Long movieId, UserReview userReview) {
 
-        Role userRole = userService.getUserRole(userReview.getUserId());
-        userReview.setRole(userRole);
-        Movie movie = movies.get(movieId);
-        List<UserReview> userReview1 = movie.getUserReview();
-        userReview1.add(userReview);
-        movie.setUserReview(userReview1);
+        if (canReviewMovie(movieId)) {
+
+            Role userRole = userService.getUserRole(userReview.getUserId());
+            userReview.setRole(userRole);
+            Movie movie = movies.get(movieId);
+            List<UserReview> userReview1 = movie.getUserReview();
+            userReview1.add(userReview);
+            movie.setUserReview(userReview1);
+            return movie;
+        }
+        throw new CustomException().serviceException();
     }
 
     @Override
     public int getAverageMovieReview(Long movieId) {
-        return reviewService.getMovieReview(movieId);
+        return reviewService.computeReview(movies.get(movieId));
     }
 
     @Override
     public int getTopNCriticMovieReviewByGenre(Genre genre, Integer count) {
         return movies.values().stream().filter(movie -> genre.equals(movie.getGenre()))
                 .limit(count)
-                .map(movie -> reviewService.getMovieReview(movie.getId()))
+                .map(reviewService::computeReview)
                 .mapToInt(value -> value)
                 .sum();
     }
