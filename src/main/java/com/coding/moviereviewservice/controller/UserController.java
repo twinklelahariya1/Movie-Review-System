@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}")
-    public APIResponse getUser(@PathVariable int id) {
+    public APIResponse getUser(@PathVariable Long id) {
         User user = userService.getUserById(id);
         return APIResponse.success(user);
     }

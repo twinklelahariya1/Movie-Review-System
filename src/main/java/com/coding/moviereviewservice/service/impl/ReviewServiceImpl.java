@@ -1,6 +1,5 @@
 package com.coding.moviereviewservice.service.impl;
 
-import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
 import com.coding.moviereviewservice.service.ReviewService;
@@ -22,23 +21,23 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private Integer computeRatingForMovie(UserReview userReview) {
-        return userReview.getRole().rating.apply(userReview.getRole(), userReview.getRating().getRating());
+        return userReview.getRole().rating.apply(userReview.getRating().getRating());
     }
 
 
-    public static Integer computeViewerRating(Role role, Integer rating) {
+    public static Integer computeViewerRating(Integer rating) {
         return rating;
     }
 
-    public static Integer computeCriticRating(Role role, Integer rating) {
+    public static Integer computeCriticRating(Integer rating) {
         return rating * 3;
     }
 
-    public static Integer computeExpertRating(Role role, Integer rating) {
+    public static Integer computeExpertRating(Integer rating) {
         return rating * 6;
     }
 
-    public static Integer computeAdminRating(Role role, Integer rating) {
+    public static Integer computeAdminRating(Integer rating) {
         return rating * 9;
     }
 }

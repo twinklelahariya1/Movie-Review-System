@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserReview {
 
-    private int userId;
+    private Long userId;
 
     @JsonIgnore
     private Role role;

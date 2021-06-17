@@ -9,9 +9,9 @@ public interface UserService {
 
     User createUser(User user);
 
-    User getUserById(int id);
+    User getUserById(Long id);
 
     List<User> getUsers();
 
-    Role getUserRole(int userId);
+    Role getUserRole(Long userId);
 }

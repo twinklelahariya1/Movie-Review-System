@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return userRepository.getData(id)
                 .orElseThrow(() -> new CustomException().dataNotFound("User Not Found with Id + " + id));
     }
@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Role getUserRole(int userId) {
+    public Role getUserRole(Long userId) {
         return getRole(userId);
     }
 
-    private Role getRole(int userId) {
+    private Role getRole(Long userId) {
         User user = userRepository.getData(userId)
                 .orElseThrow(() -> new CustomException().dataNotFound("User Not Found with Id + " + userId));
         long count = user.getMovies().size();

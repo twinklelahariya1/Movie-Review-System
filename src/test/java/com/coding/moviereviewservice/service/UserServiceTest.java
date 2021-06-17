@@ -2,14 +2,15 @@ package com.coding.moviereviewservice.service;
 
 import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.User;
+import com.coding.moviereviewservice.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.HashMap;
-import java.util.Map;
+import static java.util.Optional.ofNullable;
 
 @SpringBootTest
 public class UserServiceTest {
@@ -17,8 +18,8 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Mock
-    Map<Long, User> users = new HashMap<>();
+    @MockBean
+    private UserRepository userRepository;
 
     User user = new User(1L, "Twinkle", Role.VIEWER);
 
@@ -30,8 +31,9 @@ public class UserServiceTest {
     @Test
     public void getUserById() {
 
-        users.put(user.getId(), user);
-        Assertions.assertEquals(userService.getUserById(1).getName(), "Twinkle");
+        Mockito.when(userRepository.getData(Mockito.any())).thenReturn(ofNullable(user));
+        Assertions.assertEquals(userService.getUserById(1L).getName(), "Twinkle");
+
     }
 
 

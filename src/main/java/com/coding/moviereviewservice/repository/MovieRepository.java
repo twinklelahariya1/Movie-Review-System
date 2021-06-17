@@ -1,9 +1,11 @@
 package com.coding.moviereviewservice.repository;
 
 import com.coding.moviereviewservice.model.Movie;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class MovieRepository {
 
     Map<Long, Movie> movies = new HashMap<>();

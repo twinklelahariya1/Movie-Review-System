@@ -3,7 +3,7 @@ package com.coding.moviereviewservice.enums;
 import com.coding.moviereviewservice.service.impl.ReviewServiceImpl;
 
 import java.util.Locale;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public enum Role {
 
@@ -12,9 +12,9 @@ public enum Role {
     EXPERT(ReviewServiceImpl::computeExpertRating),
     ADMIN(ReviewServiceImpl::computeAdminRating);
 
-    public final BiFunction<Role, Integer, Integer> rating;
+    public final Function<Integer, Integer> rating;
 
-    Role(BiFunction<Role, Integer, Integer> rating) {
+    Role(Function<Integer, Integer> rating) {
         this.rating = rating;
     }
 
