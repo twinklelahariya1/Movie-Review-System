@@ -26,12 +26,17 @@ public class MovieController {
     }
 
     @GetMapping(path = "/{movieId}")
-    public APIResponse getUserById(@PathVariable Long movieId){
+    public APIResponse getUserById(@PathVariable Long movieId) {
         return APIResponse.success(movieService.getMovieById(movieId));
     }
 
-    @PostMapping("/{movieId}/review")
-    public APIResponse reviewMovie(@RequestBody UserReview userReview, @PathVariable Long movieId){
-        return APIResponse.success(reviewService.reviewMovie(userReview,movieId));
+    @GetMapping(path = "/{movieId}/review")
+    public APIResponse getMovieReview(@PathVariable Long movieId){
+        return APIResponse.success(movieService.getMovieReview(movieId));
+    }
+
+    @PostMapping(path = "/{movieId}/review")
+    public APIResponse reviewMovie(@RequestBody UserReview userReview, @PathVariable Long movieId) {
+        return APIResponse.success(reviewService.reviewMovie(userReview, movieId));
     }
 }

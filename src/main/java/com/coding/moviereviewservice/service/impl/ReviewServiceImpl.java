@@ -27,10 +27,9 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Movie getMovieReview(Long movieId) {
+    public int getMovieReview(Long movieId) {
         Movie movie = movieService.getMovieById(movieId);
-        int review = computeReview(movie);
-        return null;
+        return computeReview(movie);
     }
 
     private int computeReview(Movie movie) {

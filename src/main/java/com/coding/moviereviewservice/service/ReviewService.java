@@ -5,7 +5,7 @@ import com.coding.moviereviewservice.model.UserReview;
 
 public interface ReviewService {
 
-    Movie getMovieReview(Long movieId);
+    int getMovieReview(Long movieId);
 
     Movie reviewMovie(UserReview userReview, Long movieId);
 }

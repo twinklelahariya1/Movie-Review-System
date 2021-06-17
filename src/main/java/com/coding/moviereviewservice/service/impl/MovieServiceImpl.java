@@ -4,6 +4,7 @@ import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
 import com.coding.moviereviewservice.service.MovieService;
+import com.coding.moviereviewservice.service.ReviewService;
 import com.coding.moviereviewservice.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,13 @@ public class MovieServiceImpl implements MovieService {
 
     private final UserService userService;
 
+    private final ReviewService reviewService;
+
     Map<Long, Movie> movies = new HashMap<>();
 
-    public MovieServiceImpl(UserService userService) {
+    public MovieServiceImpl(UserService userService, ReviewService reviewService) {
         this.userService = userService;
+        this.reviewService = reviewService;
     }
 
     @Override
@@ -51,6 +55,11 @@ public class MovieServiceImpl implements MovieService {
         List<UserReview> userReview1 = movie.getUserReview();
         userReview1.add(userReview);
         movie.setUserReview(userReview1);
+    }
+
+    @Override
+    public int getMovieReview(Long movieId) {
+        return reviewService.getMovieReview(movieId);
     }
 
 }

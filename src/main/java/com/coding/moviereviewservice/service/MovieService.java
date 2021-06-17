@@ -12,4 +12,5 @@ public interface MovieService {
 
     void reviewMovie(Long movieId, UserReview userReview);
 
+    int getMovieReview(Long movieId);
 }
