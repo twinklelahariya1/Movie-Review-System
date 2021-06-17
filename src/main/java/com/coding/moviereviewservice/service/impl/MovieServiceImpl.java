@@ -1,5 +1,6 @@
 package com.coding.moviereviewservice.service.impl;
 
+import com.coding.moviereviewservice.enums.Genre;
 import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
@@ -60,6 +61,14 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public int getMovieReview(Long movieId) {
         return reviewService.getMovieReview(movieId);
+    }
+
+    @Override
+    public int getCriticMovieReviewByGenre(Genre genre) {
+        return movies.values().stream().filter(movie -> genre.equals(movie.getGenre()))
+                .map(movie -> reviewService.getMovieReview(movie.getId()))
+                .mapToInt(value -> value)
+                .sum();
     }
 
 }

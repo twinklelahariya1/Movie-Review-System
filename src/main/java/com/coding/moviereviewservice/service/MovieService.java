@@ -1,5 +1,6 @@
 package com.coding.moviereviewservice.service;
 
+import com.coding.moviereviewservice.enums.Genre;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
 
@@ -13,4 +14,6 @@ public interface MovieService {
     void reviewMovie(Long movieId, UserReview userReview);
 
     int getMovieReview(Long movieId);
+
+    int getCriticMovieReviewByGenre(Genre genre);
 }
