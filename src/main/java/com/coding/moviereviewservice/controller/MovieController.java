@@ -5,7 +5,6 @@ import com.coding.moviereviewservice.model.APIResponse;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
 import com.coding.moviereviewservice.service.MovieService;
-import com.coding.moviereviewservice.service.ReviewService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
@@ -20,7 +19,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/")
     public APIResponse createMovie(@RequestBody Movie movie) {
         return APIResponse.success(movieService.createMovie(movie));
     }
@@ -30,12 +29,12 @@ public class MovieController {
         return APIResponse.success(movieService.getMovieById(movieId));
     }
 
-    @GetMapping(path = "/{movieId}/review")
+    @GetMapping(path = "/{movieId}/reviews/average") //TODO: Average
     public APIResponse getAverageMovieReview(@PathVariable Long movieId) {
         return APIResponse.success(movieService.getAverageMovieReview(movieId));
     }
 
-    @GetMapping(path = "/genre/{genre}/critic")
+    @GetMapping(path = "/genre/{genre}/critic/reviews") //TODO: Query Param use
     public APIResponse getTopNCriticReviewOfGenre(@PathVariable String genre, @PathVariable Integer count) {
         try {
             Genre movieGenre = Genre.valueOf(genre.toUpperCase(Locale.ROOT));

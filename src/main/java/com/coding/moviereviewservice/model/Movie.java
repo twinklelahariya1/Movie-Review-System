@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Movie {
 
-    private final Long id;
+    private final Long id; //TODO: Bean validation
 
     private final String name;
 

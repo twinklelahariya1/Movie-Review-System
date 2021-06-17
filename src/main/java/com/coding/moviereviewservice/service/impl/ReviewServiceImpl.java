@@ -13,31 +13,19 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public int computeReview(Movie movie) {
         List<UserReview> userReview = movie.getUserReview();
-        int sum = userReview.stream().map(this::computeRatingForMovie)
-                .mapToInt(e -> e)
-                .sum();
+        int sum = getMovieReview(userReview);
         return sum / userReview.size();
 
     }
 
+    @Override
+    public int getMovieReview(List<UserReview> userReview) {
+        return userReview.stream().map(this::computeRatingForMovie)
+                .mapToInt(e -> e)
+                .sum();
+    }
+
     private Integer computeRatingForMovie(UserReview userReview) {
-        return userReview.getRole().rating.apply(userReview.getRating().getRating());
-    }
-
-
-    public static Integer computeViewerRating(Integer rating) {
-        return rating;
-    }
-
-    public static Integer computeCriticRating(Integer rating) {
-        return rating * 3;
-    }
-
-    public static Integer computeExpertRating(Integer rating) {
-        return rating * 6;
-    }
-
-    public static Integer computeAdminRating(Integer rating) {
-        return rating * 9;
+        return userReview.getRole().compute(userReview.getRating().getValue());
     }
 }

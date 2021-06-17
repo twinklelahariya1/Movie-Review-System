@@ -19,7 +19,7 @@ public enum Rating {
         this.rating = rating;
     }
 
-    public int getRating() {
+    public int getValue() {
         return rating;
     }
 }

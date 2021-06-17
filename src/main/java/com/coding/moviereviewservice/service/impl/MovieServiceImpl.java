@@ -3,6 +3,7 @@ package com.coding.moviereviewservice.service.impl;
 import com.coding.moviereviewservice.enums.Genre;
 import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.Movie;
+import com.coding.moviereviewservice.model.User;
 import com.coding.moviereviewservice.model.UserReview;
 import com.coding.moviereviewservice.repository.MovieRepository;
 import com.coding.moviereviewservice.service.MovieService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -74,11 +77,28 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public int getTopNCriticMovieReviewByGenre(Genre genre, Integer count) {
-        return movieRepository.getAllData().stream().filter(movie -> genre.equals(movie.getGenre()))
+        Stream<Movie> movies = movieRepository.getAllData().stream()
+                .filter(movie -> genre.equals(movie.getGenre()));
+
+        return movies
+                .map(this::getReview)
+                .sorted((o1, o2) -> o2 - o1)
                 .limit(count)
-                .map(reviewService::computeReview)
                 .mapToInt(value -> value)
                 .sum();
     }
 
+    private int getReview(Movie movie) {
+
+        List<Long> ids = movie.getUserReview().stream()
+                .map(userReview -> userService.getUserById(userReview.getUserId()))
+                .filter(user -> Role.CRITIC.equals(user.getRole()))
+                .map(User::getId)
+                .collect(Collectors.toList());
+
+        List<UserReview> userReviews = movie.getUserReview().stream().filter(userReview -> ids.contains(userReview.getUserId()))
+                .collect(Collectors.toList());
+
+        return reviewService.getMovieReview(userReviews);
+    }
 }

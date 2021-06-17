@@ -1,21 +1,22 @@
 package com.coding.moviereviewservice.enums;
 
-import com.coding.moviereviewservice.service.impl.ReviewServiceImpl;
-
 import java.util.Locale;
-import java.util.function.Function;
 
 public enum Role {
 
-    VIEWER(ReviewServiceImpl::computeViewerRating),
-    CRITIC(ReviewServiceImpl::computeCriticRating),
-    EXPERT(ReviewServiceImpl::computeExpertRating),
-    ADMIN(ReviewServiceImpl::computeAdminRating);
+    VIEWER(1),
+    CRITIC(2),
+    EXPERT(3),
+    ADMIN(4);
 
-    public final Function<Integer, Integer> rating;
+    public final int weightage;
 
-    Role(Function<Integer, Integer> rating) {
-        this.rating = rating;
+    public int compute(int rating) {
+        return rating * this.weightage;
+    }
+
+    Role(int weightage) {
+        this.weightage = weightage;
     }
 
     @Override
