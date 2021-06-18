@@ -90,13 +90,8 @@ public class MovieServiceImpl implements MovieService {
 
     private int getReview(Movie movie) {
 
-        List<Long> ids = movie.getUserReview().stream()
-                .map(userReview -> userService.getUserById(userReview.getUserId()))
+        List<UserReview> userReviews = movie.getUserReview().stream()
                 .filter(user -> Role.CRITIC.equals(user.getRole()))
-                .map(User::getId)
-                .collect(Collectors.toList());
-
-        List<UserReview> userReviews = movie.getUserReview().stream().filter(userReview -> ids.contains(userReview.getUserId()))
                 .collect(Collectors.toList());
 
         return reviewService.getMovieReview(userReviews);
