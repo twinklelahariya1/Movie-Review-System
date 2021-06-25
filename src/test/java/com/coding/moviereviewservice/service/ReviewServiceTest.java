@@ -40,6 +40,24 @@ class ReviewServiceTest {
     }
 
     @Test
+    void computeAverageReviewFail() {
+        Movie movie = new Movie(1L, "DDLJ", new Date(), Genre.ROMANTIC, new ArrayList<>());
+        UserReview userReview1 = new UserReview(1L, Role.VIEWER, Rating.NINE);
+        UserReview userReview2 = new UserReview(2L, Role.CRITIC, Rating.FIVE);
+        UserReview userReview3 = new UserReview(3L, Role.ADMIN, Rating.TWO);
+        UserReview userReview4 = new UserReview(4L, Role.VIEWER, Rating.FIVE);
+
+        List<UserReview> userReview = movie.getUserReview();
+        userReview.add(userReview1);
+        userReview.add(userReview2);
+        userReview.add(userReview3);
+        userReview.add(userReview4);
+
+        movie.setUserReview(userReview);
+        Assertions.assertNotEquals(reviewService.computeAverageReview(movie), 11);
+    }
+
+    @Test
     void getMovieReview() {
         Movie movie = new Movie(1L, "DDLJ", new Date(), Genre.ROMANTIC, new ArrayList<>());
         UserReview userReview1 = new UserReview(1L, Role.VIEWER, Rating.NINE);
@@ -56,5 +74,23 @@ class ReviewServiceTest {
         movie.setUserReview(userReview);
 
         Assertions.assertEquals(reviewService.getMovieReview(movie.getUserReview()),32);
+    }
+    @Test
+    void getMovieReviewFail() {
+        Movie movie = new Movie(1L, "DDLJ", new Date(), Genre.ROMANTIC, new ArrayList<>());
+        UserReview userReview1 = new UserReview(1L, Role.VIEWER, Rating.NINE);
+        UserReview userReview2 = new UserReview(2L, Role.CRITIC, Rating.FIVE);
+        UserReview userReview3 = new UserReview(3L, Role.ADMIN, Rating.TWO);
+        UserReview userReview4 = new UserReview(4L, Role.VIEWER, Rating.FIVE);
+
+        List<UserReview> userReview = movie.getUserReview();
+        userReview.add(userReview1);
+        userReview.add(userReview2);
+        userReview.add(userReview3);
+        userReview.add(userReview4);
+
+        movie.setUserReview(userReview);
+
+        Assertions.assertNotEquals(reviewService.getMovieReview(movie.getUserReview()),132);
     }
 }
