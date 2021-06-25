@@ -30,7 +30,7 @@ public class CustomException extends RuntimeException {
         this.message = message;
     }
 
-    //factory pattern can be used
+    //TODO:factory pattern can be used
 
     public CustomException dataNotFound() {
         return new CustomException(Code.DATA_NOT_FOUND_EXCEPTION);
