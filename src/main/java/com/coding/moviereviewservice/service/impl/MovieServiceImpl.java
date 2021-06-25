@@ -35,19 +35,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie createMovie(Movie movie) {
 
-        movieRepository.addData(movie);
-        return movie;
+        return movieRepository.addData(movie);
     }
 
     @Override
     public Movie getMovieById(Long movieId) {
         return getMovie(movieId);
-    }
-
-    private boolean canReviewMovie(Long movieId) {
-        Movie movie = getMovie(movieId);
-        return Calendar.getInstance().getTime().after(movie.getReleaseDate());
-
     }
 
     @Override
@@ -64,6 +57,12 @@ public class MovieServiceImpl implements MovieService {
             return movie;
         }
         throw new CustomException().serviceException();
+    }
+
+    private boolean canReviewMovie(Long movieId) {
+        Movie movie = getMovie(movieId);
+        return Calendar.getInstance().getTime().after(movie.getReleaseDate());
+
     }
 
     private Movie getMovie(Long movieId) {

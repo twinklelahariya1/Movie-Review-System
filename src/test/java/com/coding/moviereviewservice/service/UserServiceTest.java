@@ -80,5 +80,11 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    public void getUsers() {
+        Mockito.when(userRepository.getAllData()).thenReturn(Collections.singletonList(user));
+        Assertions.assertEquals(userService.getUsers().get(0).getName(), "Twinkle");
+    }
+
 
 }

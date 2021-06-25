@@ -10,8 +10,9 @@ public class MovieRepository {
 
     Map<Long, Movie> movies = new HashMap<>();
 
-    public void addData(Movie movie) {
+    public Movie addData(Movie movie) {
         movies.put(movie.getId(), movie);
+        return movie;
     }
 
     public Optional<Movie> getData(Long id) {
