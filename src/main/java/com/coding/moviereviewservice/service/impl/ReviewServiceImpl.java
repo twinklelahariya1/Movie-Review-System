@@ -11,7 +11,7 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
 
     @Override
-    public int computeReview(Movie movie) {
+    public int computeAverageReview(Movie movie) {
         List<UserReview> userReview = movie.getUserReview();
         int sum = getMovieReview(userReview);
         return sum / userReview.size();

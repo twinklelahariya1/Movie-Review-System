@@ -4,6 +4,8 @@ import com.coding.moviereviewservice.enums.Genre;
 import com.coding.moviereviewservice.model.Movie;
 import com.coding.moviereviewservice.model.UserReview;
 
+import java.util.List;
+
 public interface MovieService {
     Movie createMovie(Movie movie);
 
@@ -13,5 +15,5 @@ public interface MovieService {
 
     int getAverageMovieReview(Long movieId);
 
-    int getTopNCriticMovieReviewByGenre(Genre genre, Integer count);
+    List<Movie> getTopNCriticMovieReviewByGenre(Genre genre, Integer count);
 }

@@ -3,7 +3,6 @@ package com.coding.moviereviewservice.service.impl;
 import com.coding.moviereviewservice.enums.Genre;
 import com.coding.moviereviewservice.enums.Role;
 import com.coding.moviereviewservice.model.Movie;
-import com.coding.moviereviewservice.model.User;
 import com.coding.moviereviewservice.model.UserReview;
 import com.coding.moviereviewservice.repository.MovieRepository;
 import com.coding.moviereviewservice.service.MovieService;
@@ -13,9 +12,10 @@ import com.coding.moviereviewservice.util.CustomException;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -71,20 +71,21 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public int getAverageMovieReview(Long movieId) {
-        return reviewService.computeReview(getMovie(movieId));
+        return reviewService.computeAverageReview(getMovie(movieId));
     }
 
     @Override
-    public int getTopNCriticMovieReviewByGenre(Genre genre, Integer count) {
-        Stream<Movie> movies = movieRepository.getAllData().stream()
-                .filter(movie -> genre.equals(movie.getGenre()));
+    public List<Movie> getTopNCriticMovieReviewByGenre(Genre genre, Integer count) {
+        List<Movie> movies = movieRepository.getMovieByGenre(genre);
 
-        return movies
-                .map(this::getReview)
-                .sorted((o1, o2) -> o2 - o1)
+        Map<Movie, Integer> movieList = movies.stream()
+                .collect(Collectors.toMap(movie -> movie, this::getReview));
+
+        return movieList.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .limit(count)
-                .mapToInt(value -> value)
-                .sum();
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     private int getReview(Movie movie) {

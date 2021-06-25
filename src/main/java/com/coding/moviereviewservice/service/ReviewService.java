@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReviewService {
 
-    int computeReview(Movie movie);
+    int computeAverageReview(Movie movie);
 
     int getMovieReview(List<UserReview> userReview);
 }
